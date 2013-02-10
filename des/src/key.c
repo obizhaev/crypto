@@ -50,9 +50,9 @@ des_key_transform(const unsigned char *src, unsigned char *dst, int n)
 		_cut_parity_bits(src, dst);
 		break;
 	default:
-		return DES_ERR;
+		return 1;
 	}
 
-	return DES_OK;
+	return 0;
 }
 
