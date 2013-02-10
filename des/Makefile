@@ -6,11 +6,11 @@ headers = des.h
 
 sources = block.c
 
-objects = block.o
+objects = block.o key.o
 
 lib = libdes.so
 
-binaries = btest
+binaries = btest ktest
 
 vpath %.c src
 vpath %.h include
