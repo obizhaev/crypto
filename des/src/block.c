@@ -1,37 +1,37 @@
 #include "des.h"
 
-#define	COPY_4(src, dst)						\
+#define	COPY_32(src, dst)						\
 	(dst)[0] = (src)[0];						\
 	(dst)[1] = (src)[1];						\
 	(dst)[2] = (src)[2];						\
 	(dst)[3] = (src)[3];						\
 
-#define	COPY_6(src, dst)						\
-	COPY_4(src, dst)						\
+#define	COPY_48(src, dst)						\
+	COPY_32(src, dst)						\
 	(dst)[4] = (src)[4];						\
 	(dst)[5] = (src)[5];
 
-#define	COPY_7(src, dst)						\
-	COPY_6(src, dst)						\
+#define	COPY_56(src, dst)						\
+	COPY_48(src, dst)						\
 	(dst)[6] = (src)[6];
 
-#define	COPY_8(src, dst)						\
-	COPY_7(src, dst)						\
+#define	COPY_64(src, dst)						\
+	COPY_56(src, dst)						\
 	(dst)[7] = (src)[7];
 
-#define	ZERO_4(p)							\
+#define	ZERO_32(p)							\
 	(p)[0] = 0;							\
 	(p)[1] = 0;							\
 	(p)[2] = 0;							\
 	(p)[3] = 0;
 
-#define	ZERO_6(p)							\
-	ZERO_4(p)							\
+#define	ZERO_48(p)							\
+	ZERO_32(p)							\
 	(p)[4] = 0;							\
 	(p)[5] = 0;
 
-#define	ZERO_8(p)							\
-	ZERO_6(p)							\
+#define	ZERO_64(p)							\
+	ZERO_48(p)							\
 	(p)[6] = 0;							\
 	(p)[7] = 0;
 
@@ -145,7 +145,7 @@
 	k[6] |= ((l >> 4) & CMASK(N));
 
 #define	DES_ROUND							\
-	ZERO_6(buf)							\
+	ZERO_48(buf)							\
 	PERMUTE_48(m+4, buf, des_ept)					\
 									\
 	buf[5] ^= key[5];						\
@@ -178,7 +178,7 @@
 	buf[2] = (des_sbox4[(int)buf[4]] << 4) | des_sbox5[(int)buf[5]];\
 	buf[3] = (des_sbox6[(int)buf[6]] << 4) | des_sbox7[(int)buf[7]];\
 									\
-	ZERO_4(buf+4)							\
+	ZERO_32(buf+4)							\
 	PERMUTE_32(buf, buf+4, des_cpt)					\
 									\
 	((int *)buf)[0] = ((int *)buf)[1] ^ ((int *)m)[0];		\
@@ -187,17 +187,17 @@
 
 #define	ENC_ROUND(N, r)							\
 	ROTATE_KEY(r)							\
-	ZERO_6(key)							\
+	ZERO_48(key)							\
 	PERMUTE_48(k, key, des_kcpt)					\
 	DES_ROUND
 
 #define	DEC_ROUND(N)							\
-	COPY_6(keyring[N-1], key)					\
+	COPY_48(keyring[N-1], key)					\
 	DES_ROUND
 
 #define	GET_SUBKEY(N, r)						\
 	ROTATE_KEY(r)							\
-	ZERO_6(keyring[N-1])						\
+	ZERO_48(keyring[N-1])						\
 	PERMUTE_48(k, keyring[N-1], des_kcpt)
 
 unsigned char des_ipt[64] = {
@@ -312,13 +312,13 @@ des_block_encrypt(char *m, char *k)
 	unsigned char key[6];
 	unsigned char buf[8];
 
-	ZERO_8(buf)
+	ZERO_64(buf)
 	PERMUTE_64(m, buf, des_ipt)
-	COPY_8(buf, m)
+	COPY_64(buf, m)
 
-	ZERO_8(buf)
+	ZERO_64(buf)
 	PERMUTE_56(k, buf, des_kpt)
-	COPY_7(buf, k)
+	COPY_56(buf, k)
 
 	ENC_ROUND(1, 1)
 	ENC_ROUND(2, 1)
@@ -337,13 +337,13 @@ des_block_encrypt(char *m, char *k)
 	ENC_ROUND(15, 2)
 	ENC_ROUND(16, 1)
 
-	COPY_4(m, buf)
-	COPY_4(m+4, m)
-	COPY_4(buf, m+4)
+	COPY_32(m, buf)
+	COPY_32(m+4, m)
+	COPY_32(buf, m+4)
 
-	ZERO_8(buf)
+	ZERO_64(buf)
 	PERMUTE_64(m, buf, des_fpt)
-	COPY_8(buf, m)
+	COPY_64(buf, m)
 }
 
 void
@@ -355,13 +355,13 @@ des_block_decrypt(char *m, char *k)
 	unsigned char buf[8];
 	unsigned char keyring[16][6];
 
-	ZERO_8(buf)
+	ZERO_64(buf)
 	PERMUTE_64(m, buf, des_ipt)
-	COPY_8(buf, m)
+	COPY_64(buf, m)
 
-	ZERO_8(buf)
+	ZERO_64(buf)
 	PERMUTE_56(k, buf, des_kpt)
-	COPY_7(buf, k)
+	COPY_56(buf, k)
 
 	GET_SUBKEY(1, 1)
 	GET_SUBKEY(2, 1)
@@ -397,12 +397,12 @@ des_block_decrypt(char *m, char *k)
 	DEC_ROUND(2)
 	DEC_ROUND(1)
 
-	COPY_4(m, buf)
-	COPY_4(m+4, m)
-	COPY_4(buf, m+4)
+	COPY_32(m, buf)
+	COPY_32(m+4, m)
+	COPY_32(buf, m+4)
 
-	ZERO_8(buf)
+	ZERO_64(buf)
 	PERMUTE_64(m, buf, des_fpt)
-	COPY_8(buf, m)
+	COPY_64(buf, m)
 }
 
