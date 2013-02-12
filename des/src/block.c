@@ -309,8 +309,12 @@ des_block_encrypt(char *m, char *k)
 {
 	unsigned int n;
 	unsigned char l;
+	unsigned char kbuf[8];
 	unsigned char key[6];
 	unsigned char buf[8];
+
+	COPY_64(k, kbuf)
+	k = (char *)kbuf;
 
 	ZERO_64(buf)
 	PERMUTE_64(m, buf, des_ipt)
@@ -351,9 +355,13 @@ des_block_decrypt(char *m, char *k)
 {
 	unsigned int n;
 	unsigned char l;
+	unsigned char kbuf[8];
 	unsigned char key[6];
 	unsigned char buf[8];
 	unsigned char keyring[16][6];
+
+	COPY_64(k, kbuf)
+	k = (char *)kbuf;
 
 	ZERO_64(buf)
 	PERMUTE_64(m, buf, des_ipt)

@@ -4,13 +4,13 @@ CFLAGS = -Wall -I include
 
 headers = des.h
 
-sources = block.c
+sources = block.c key.c cbc.c
 
-objects = block.o key.o
+objects = block.o key.o cbc.o
 
 lib = libdes.so
 
-binaries = btest ktest
+binaries = btest ktest cbctest
 
 vpath %.c src
 vpath %.h include
