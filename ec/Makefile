@@ -2,12 +2,6 @@ CC = gcc
 
 CFLAGS = -I include -Wall -lmpl
 
-bindir = bin
-
-libdir = lib
-
-objdir = obj
-
 headers = ec.h
 
 sources = ec_add.c ec_clear.c ec_init.c ec_mul.c ec_set.c ec_util.c
@@ -20,18 +14,14 @@ vpath %.h include
 vpath %.c src
 vpath %.o obj
 
-$(libfile): %.so:
-	make objects
-	$(CC) -shared -Wl,-soname,$@ -o $(libdir)/$@ $^
+$(libfile): %.so: $(objects)
+	$(CC) -shared -Wl,-soname,$@ -o $@ $^
 
-%: %.c
-	make objects
-	$(CC) $(CFLAGS) -o $(bindir)/$@ $^
-
-objects: $(objects)
+%: %.c $(objects)
+	$(CC) $(CFLAGS) -o $@ $^
 
 $(objects): %.o: %.c $(headers)
-	$(CC) $(CFLAGS) -fPIC -c -o $(objdir)/$@ $<
+	$(CC) $(CFLAGS) -fPIC -c -o $@ $<
 
 .PHONY: install uninstall clean
 install:
@@ -43,5 +33,5 @@ uninstall:
 	rm -f /usr/include/ec.h
 
 clean:
-	rm -f *.o $(bindir)/* $(libdir)/* $(objdir)/*
+	rm -f $(objects) $(libfile)
 
