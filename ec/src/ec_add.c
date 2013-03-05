@@ -37,14 +37,14 @@
 	rc = mpl_mul(c, a, b);						\
 	check(rc, label)						\
 									\
-	rc = mpl_reduce_barrett(c, c, p, mu);				\
+	rc = mpl_div(&tmp2, c, c, p);					\
 	check(rc, label)
 
 #define	_MODULAR_SQR(c, a, p, mu, label)				\
 	rc = mpl_sqr(c, a);						\
 	check(rc, label)						\
 									\
-	rc = mpl_reduce_barrett(c, c, p, mu);				\
+	rc = mpl_div(&tmp2, c, c, p);					\
 	check(rc, label)
 
 #define	_MODULAR_INVERSE(c, a, p, label)				\
@@ -61,7 +61,7 @@ int
 ec_add(ec_point *q3, const ec_point *q1, const ec_point *q2, const mpl_int *a, const mpl_int *p)
 {
 	ec_point pt1, pt2;
-	mpl_int s, mu_p, tmp, a_copy;
+	mpl_int s, mu_p, tmp, tmp2, a_copy;
 	mpl_int *x1, *y1;
 	mpl_int *x2, *y2;
 	mpl_int *x3, *y3;
@@ -83,7 +83,7 @@ ec_add(ec_point *q3, const ec_point *q1, const ec_point *q2, const mpl_int *a, c
 		goto end;
 	}
 
-	rc = mpl_initv(&s, &mu_p, &tmp, &a_copy, NULL);
+	rc = mpl_initv(&s, &mu_p, &tmp, &tmp2, &a_copy, NULL);
 	check(rc, end)
 
 	rc = ec_initv(&pt1, &pt2, NULL);
@@ -170,7 +170,7 @@ ec_add(ec_point *q3, const ec_point *q1, const ec_point *q2, const mpl_int *a, c
 error:
 	ec_clearv(&pt1, &pt2, NULL);
 error_init:
-	mpl_clearv(&s, &mu_p, &tmp, &a_copy, NULL);
+	mpl_clearv(&s, &mu_p, &tmp, &tmp2, &a_copy, NULL);
 end:
 	return rc;
 }

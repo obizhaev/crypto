@@ -12,7 +12,6 @@ libfile = libec.so
 
 vpath %.h include
 vpath %.c src
-vpath %.o obj
 
 $(libfile): %.so: $(objects)
 	$(CC) -shared -Wl,-soname,$@ -o $@ $^
