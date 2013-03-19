@@ -1,0 +1,22 @@
+.TH "geds_point_new" "3" "19 марта 2013" "Linux" "GEDS Functions Manual"
+.
+.SH ИМЯ
+geds_point_new - выделяет память для точки
+.
+.SH СИНТАКСИС
+.nf
+.B #include <geds.h>
+.sp
+.BI "geds_point *geds_point_new();"
+.fi
+.
+.SH ОПИСАНИЕ
+Функция \fBgeds_point_new\fP выделяет память
+для точки на эллиптической кривой.
+.
+.SH "ВОЗВРАЩАЕМОЕ ЗНАЧЕНИЕ"
+\fBgeds_point_new\fP возвращает указатель на выделенную память,
+либо NULL,
+если память выделить не удалось.
+.
+.SH "СМОТРИ ТАКЖЕ"

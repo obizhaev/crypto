@@ -1,0 +1,23 @@
+.TH "geds_set_point" "3" "19 марта 2013" "Linux" "GEDS Functions Manual"
+.
+.SH ИМЯ
+geds_set_point - установить точку
+.
+.SH СИНТАКСИС
+.nf
+.B #include <geds.h>
+.sp
+.BI "int geds_set_point(geds_point *" P ", const char *" x ", int " nx ", const char *" y ", int " ny );
+.fi
+.
+.SH ОПИСАНИЕ
+Функция \fBgeds_set_point\fP устанавливает значения координат точки
+в \fIx\fP и \fIy\fP.
+Переменные \fInx\fP и \fIny\fP должны содержать длины областей памяти,
+в которых записаны координаты.
+.
+.SH "ВОЗВРАЩАЕМОЕ ЗНАЧЕНИЕ"
+\fBgeds_set_point\fP возвращает \fBGEDS_OK\fP,
+либо \fBGEDS_NOMEM\fP, если произошла ошибка.
+.
+.SH "СМОТРИ ТАКЖЕ"

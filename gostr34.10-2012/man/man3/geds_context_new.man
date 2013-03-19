@@ -1,0 +1,22 @@
+.TH "geds_context_new" "3" "18 марта 2013" "Linux" "GEDS Functions Manual"
+.
+.SH ИМЯ
+geds_context_new - выделяет память для работы с ЭЦП
+.
+.SH СИНТАКСИС
+.nf
+.B #include <geds.h>
+.sp
+.BI "geds_context *geds_context_new();"
+.fi
+.
+.SH ОПИСАНИЕ
+Функция \fBgeds_context_new\fP выделяет память,
+необходимую для работы с механизмом генерации ЭЦП ГОСТ Р 34.10-3012.
+.
+.SH "ВОЗВРАЩАЕМОЕ ЗНАЧЕНИЕ"
+\fBgeds_context_new\fP возвращает указатель на выделенную память,
+либо NULL,
+если память выделить не удалось.
+.
+.SH "СМОТРИ ТАКЖЕ"

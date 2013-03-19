@@ -1,0 +1,19 @@
+.TH "geds_context_free" "3" "19 марта 2013" "Linux" "GEDS Functions Manual"
+.
+.SH ИМЯ
+geds_context_free - освобождает память
+.
+.SH СИНТАКСИС
+.nf
+.B #include <geds.h>
+.sp
+.BI "void geds_context_free(geds_context **" ctx );
+.fi
+.
+.SH ОПИСАНИЕ
+Функция \fBgeds_context_free\fP освобождает память,
+выделенную ранее с помощью \fBgeds_context_new\fP,
+и записывает в *\fIctx\fP значение NULL.
+.
+.SH "СМОТРИ ТАКЖЕ"
+

@@ -1,0 +1,25 @@
+.TH "geds_set_length" "3" "19 марта 2013" "Linux" "GEDS Functions Manual"
+.
+.SH ИМЯ
+geds_set_length
+.
+.SH СИНТАКСИС
+.nf
+.B #include <geds.h>
+.sp
+.BI
+.fi
+.
+.SH ОПИСАНИЕ
+
+.
+.SH "ВОЗВРАЩАЕМОЕ ЗНАЧЕНИЕ"
+
+.
+.SH ОШИБКИ
+
+.
+.SH ЗАМЕЧАНИЯ
+
+.
+.SH "СМОТРИ ТАКЖЕ"

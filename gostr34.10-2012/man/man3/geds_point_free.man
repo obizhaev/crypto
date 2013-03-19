@@ -1,0 +1,17 @@
+.TH "geds_point_free" "3" "19 марта 2013" "Linux" "GEDS Functions Manual"
+.
+.SH ИМЯ
+geds_point_free - освобождает память, содержащую точку
+.
+.SH СИНТАКСИС
+.nf
+.B #include <geds.h>
+.sp
+.BI "void geds_point_free(geds_point **" P );
+.fi
+.
+.SH ОПИСАНИЕ
+Функция \fBgeds_point_free\fP освобждает память,
+выделенную ранее с помощью \fBgeds_point_new\fP.
+.
+.SH "СМОТРИ ТАКЖЕ"
