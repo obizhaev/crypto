@@ -11,12 +11,17 @@ geds_point_new - выделяет память для точки
 .fi
 .
 .SH ОПИСАНИЕ
-Функция \fBgeds_point_new\fP выделяет память
+Функция \fBgeds_point_new\fP(3) выделяет память
 для точки на эллиптической кривой.
 .
 .SH "ВОЗВРАЩАЕМОЕ ЗНАЧЕНИЕ"
-\fBgeds_point_new\fP возвращает указатель на выделенную память,
+\fBgeds_point_new\fP(3) возвращает указатель на выделенную память,
 либо NULL,
 если память выделить не удалось.
 .
 .SH "СМОТРИ ТАКЖЕ"
+.BR geds_point_free (3),
+.BR geds_context_new (3),
+.BR geds_context_free (3),
+.BR geds_generate (3),
+.BR geds_check (3)

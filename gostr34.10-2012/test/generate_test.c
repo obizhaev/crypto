@@ -185,6 +185,7 @@ main()
 	rc = mpl_to_str(&s, buf, 16, sizeof(buf));
 	on_fail("can't make str")
 
+#ifndef TIMING
 	printf("Signature: %s\n", buf);
 
 	rc = geds_check(msg, sizeof(msg), Q, ctx);
@@ -199,6 +200,7 @@ main()
 		perror("can't check");
 		break;
 	};
+#endif
 
 free_Q:
 	geds_point_free(&Q);

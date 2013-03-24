@@ -11,13 +11,25 @@ geds_set_point - установить точку
 .fi
 .
 .SH ОПИСАНИЕ
-Функция \fBgeds_set_point\fP устанавливает значения координат точки
+Функция \fBgeds_set_point\fP(3) устанавливает значения координат точки
 в \fIx\fP и \fIy\fP.
 Переменные \fInx\fP и \fIny\fP должны содержать длины областей памяти,
 в которых записаны координаты.
 .
 .SH "ВОЗВРАЩАЕМОЕ ЗНАЧЕНИЕ"
-\fBgeds_set_point\fP возвращает \fBGEDS_OK\fP,
+\fBgeds_set_point\fP(3) возвращает \fBGEDS_OK\fP,
 либо \fBGEDS_NOMEM\fP, если произошла ошибка.
 .
 .SH "СМОТРИ ТАКЖЕ"
+.BR geds_generate (3),
+.BR geds_check (3),
+.BR geds_set_point (3),
+.BR geds_set_curve (3),
+.BR geds_set_subgroup (3),
+.BR geds_set_rnd (3),
+.BR geds_set_signature (3),
+.BR geds_get_signature (3)
+.BR geds_context_new (3),
+.BR geds_context_free (3),
+.BR geds_point_new (3),
+.BR geds_point_free (3)

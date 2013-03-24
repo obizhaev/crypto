@@ -11,7 +11,12 @@ geds_point_free - освобождает память, содержащую то
 .fi
 .
 .SH ОПИСАНИЕ
-Функция \fBgeds_point_free\fP освобждает память,
-выделенную ранее с помощью \fBgeds_point_new\fP.
+Функция \fBgeds_point_free\fP(3) освобждает память,
+выделенную ранее с помощью \fBgeds_point_new\fP(3).
 .
 .SH "СМОТРИ ТАКЖЕ"
+.BR geds_point_new (3),
+.BR geds_context_new (3),
+.BR geds_context_free (3),
+.BR geds_generate (3),
+.BR geds_check (3)

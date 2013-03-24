@@ -18,6 +18,15 @@ vpath %.h include
 $(libfile): %.so: $(objects)
 	$(CC) -shared -Wl,-soname,$@ -o $@ $^
 
+.PHONY: stat timing 
+stat: stat.c
+	make timing
+	$(CC) $(CFLAGS) -o $@ $<
+	/bin/bash ./stat.sh
+
+timing: generate_test.c $(sources) $(headers)
+	$(CC) $(CFLAGS) -DTIMING -o $@ $^
+
 %: %.c $(objects) $(headers)
 	$(CC) $(CFLAGS) -o $@ $^
 
@@ -36,5 +45,5 @@ uninstall:
 	cd ./man/man3; make uninstall
 
 clean:
-	rm -f $(libfile) $(objects)
+	rm -f $(libfile) $(objects) timing measures stat
 

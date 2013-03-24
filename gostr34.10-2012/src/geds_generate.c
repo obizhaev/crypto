@@ -1,6 +1,11 @@
 #include <stdint.h>
 #include <stdio.h>
 
+#ifdef TIMING
+ #include <sys/time.h>
+ #include <errno.h>
+#endif
+
 #include <mpl.h>
 #include <ec.h>
 
@@ -15,6 +20,11 @@ geds_generate(char *msg, int n, char *d, int nd, geds_context *ctx)
 	const mpl_int *q, *p, *a;
 	int rc;
 	unsigned char h[64];
+
+#ifdef TIMING
+	struct timeval tv0, tv1, tv2, tv3;
+	long int t;
+#endif
 
 	if (ctx->length < 0) {
 		rc = GEDS_ERR;
@@ -33,11 +43,29 @@ geds_generate(char *msg, int n, char *d, int nd, geds_context *ctx)
 		goto err_mpl;
 	}
 
+#ifdef TIMING
+	if (gettimeofday(&tv0, NULL) != 0) {
+		perror("can't get time");
+		goto err_point;
+	}
+#endif
+
 	rc = ctx->H(msg, n, (char *)h);
 	if (rc != 0) {
 		rc = GEDS_ERR;
 		goto err_point;
 	}
+
+#ifdef TIMING
+	if (gettimeofday(&tv1, NULL) != 0) {
+		perror("can't get time");
+		goto err_point;
+	}
+
+	t  = (1000000*tv1.tv_sec + tv1.tv_usec);
+	t -= (1000000*tv0.tv_sec + tv0.tv_usec);
+	fprintf(stderr, "%li\n", t);
+#endif
 
 	rc = mpl_set_uchar(&e, h, ctx->length/16);
 	if (rc != MPL_OK) {
@@ -49,6 +77,13 @@ geds_generate(char *msg, int n, char *d, int nd, geds_context *ctx)
 	p = &(ctx->p);
 	a = &(ctx->a);
 	P = &(ctx->P);
+
+#ifdef TIMING
+	if (gettimeofday(&tv0, NULL) != 0) {
+		perror("can't get time");
+		goto err_point;
+	}
+#endif
 
 	rc = mpl_div(&tmp, &e, &e, q);
 	if (rc != MPL_OK) {
@@ -88,11 +123,29 @@ geds_generate(char *msg, int n, char *d, int nd, geds_context *ctx)
 				goto err_point;
 			}
 
+#ifdef TIMING
+			if (gettimeofday(&tv2, NULL) != 0) {
+				perror("can't get time");
+				goto err_point;
+			}
+#endif
+
 			rc = ec_mul(&C, P, &k, a, p);
 			if (rc != EC_OK) {
 				rc = GEDS_ERR;
 				goto err_point;
 			}
+
+#ifdef TIMING
+		if (gettimeofday(&tv3, NULL) != 0) {
+			perror("can't get time");
+			goto err_point;
+		}
+
+		t  = (1000000*tv3.tv_sec + tv3.tv_usec);
+		t -= (1000000*tv2.tv_sec + tv2.tv_usec);
+		fprintf(stderr, "%li\n", t);
+#endif
 
 			rc = ec_get_x(&r, &C);
 			if (rc != EC_OK) {
@@ -143,6 +196,17 @@ geds_generate(char *msg, int n, char *d, int nd, geds_context *ctx)
 			goto err_point;
 		}
 	}
+
+#ifdef TIMING
+	if (gettimeofday(&tv1, NULL) != 0) {
+		perror("can't get time");
+		goto err_point;
+	}
+
+	t  = (1000000*tv1.tv_sec + tv1.tv_usec);
+	t -= (1000000*tv0.tv_sec + tv0.tv_usec);
+	fprintf(stderr, "%li\n", t);
+#endif
 
 	rc = mpl_to_uchar(&r, ctx->s, ctx->length/16);
 	if (rc != MPL_OK) {
