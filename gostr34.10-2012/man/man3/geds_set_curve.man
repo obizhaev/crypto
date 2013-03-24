@@ -1,0 +1,40 @@
+.TH "geds_set_curve" "3" "19 марта 2013" "Linux" "GEDS Functions Manual"
+.
+.SH ИМЯ
+geds_set_curve - устанавливает эллиптическую кривую
+.
+.SH СИНТАКСИС
+.nf
+.B #include <geds.h>
+.sp
+.BI "int geds_set_curve(const char *" a ", int " na ", const char *" b ", int " nb ", const char *" p ", int " np ", geds_context *" ctx );
+.fi
+.
+.SH ОПИСАНИЕ
+Функция \fBgeds_set_curve\fP(3) устанавливает параметры
+эллиптической кривой,
+на которой будет производиться генерция/проверка ЭЦП.
+.sp
+\fIa\fP и \fIb\fP - коэффициенты кривой в их двоичном представлении,
+а \fIp\fP - модуль, по которому производятся вычисления.
+\fIna\fP, \fInb\fP и \fInp\fP - длины областей памяти,
+в которых записаны соответствующие числа.
+.
+.SH "ВОЗВРАЩАЕМОЕ ЗНАЧЕНИЕ"
+\fBgeds_set_curve\fP(3) возвращает \fBGEDS_OK\fP,
+либо \fBGEDS_ERR\fP,
+если произошла ошибка.
+.
+.SH "СМОТРИ ТАКЖЕ"
+.BR geds_generate (3),
+.BR geds_check (3),
+.BR geds_set_point (3),
+.BR geds_set_length (3),
+.BR geds_set_subgroup (3),
+.BR geds_set_rnd (3),
+.BR geds_set_signature (3),
+.BR geds_get_signature (3)
+.BR geds_context_new (3),
+.BR geds_context_free (3),
+.BR geds_point_new (3),
+.BR geds_point_free (3)

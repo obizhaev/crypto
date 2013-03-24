@@ -1,0 +1,34 @@
+.TH "geds_set_signature" "3" "20 марта 2013" "Linux" "GEDS Functions Manual"
+.
+.SH ИМЯ
+geds_set_signature - указать подпись для проверки
+.
+.SH СИНТАКСИС
+.nf
+.B #include <geds.h>
+.sp
+.BI "void geds_set_signature(const unsigned char *" buf ", geds_context *" ctx );
+.fi
+.
+.SH ОПИСАНИЕ
+Функция \fBgeds_set_signature\fP(3) копирует
+во внутренний буфер механизма ЭЦП подпись,
+хранящуюся в \fIbuf\fP.
+.
+.SH ЗАМЕЧАНИЯ
+Вызов \fBgeds_generate\fP(3) перезаписывает буфер,
+в который функция \fBgeds_set_signature\fP(3) копирует подпись.
+.
+.SH "СМОТРИ ТАКЖЕ"
+.BR geds_generate (3),
+.BR geds_check (3),
+.BR geds_set_point (3),
+.BR geds_set_length (3),
+.BR geds_set_curve (3),
+.BR geds_set_subgroup (3),
+.BR geds_set_rnd (3),
+.BR geds_get_signature (3)
+.BR geds_context_new (3),
+.BR geds_context_free (3),
+.BR geds_point_new (3),
+.BR geds_point_free (3)

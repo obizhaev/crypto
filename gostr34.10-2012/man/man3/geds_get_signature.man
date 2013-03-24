@@ -1,0 +1,30 @@
+.TH "geds_get_signature" "3" "20 марта 2013" "Linux" "GEDS Functions Manual"
+.
+.SH ИМЯ
+geds_get_signature - извлечь подпись
+.
+.SH СИНТАКСИС
+.nf
+.B #include <geds.h>
+.sp
+.BI "void geds_get_signature(unsigned char *" buf ", const geds_context *" ctx );
+.fi
+.
+.SH ОПИСАНИЕ
+Функция \fBgeds_get_signature\fP(3) копирует подпись
+из буфера механизма ЭЦП
+в буфер пользователя \fIbuf\fP.
+.
+.SH "СМОТРИ ТАКЖЕ"
+.BR geds_generate (3),
+.BR geds_check (3),
+.BR geds_set_point (3),
+.BR geds_set_length (3),
+.BR geds_set_curve (3),
+.BR geds_set_subgroup (3),
+.BR geds_set_rnd (3),
+.BR geds_set (3)
+.BR geds_context_new (3),
+.BR geds_context_free (3),
+.BR geds_point_new (3),
+.BR geds_point_free (3)

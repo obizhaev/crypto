@@ -1,0 +1,38 @@
+.TH "geds_set_rnd" "3" "20 марта 2013" "Linux" "GEDS Functions Manual"
+.
+.SH ИМЯ
+geds_set_rnd - установить источник энтропии
+.
+.SH СИНТАКСИС
+.nf
+.B #include <geds.h>
+.sp
+.BI "void geds_set_rnd(int (*" rnd ")(void *" buf ", size_t " len ", void *" rndctx "), void *" rndctx ", geds_context *" ctx );
+.fi
+.
+.SH ОПИСАНИЕ
+Функция \fBgeds_set_rnd\fP(3) устанавливает как источник случайных байтов
+пользовательскую функцию \fIrnd\fP,
+которая,
+возможно,
+будет использовать некоторую память в качестве контекста.
+.sp
+Предполагается,
+что \fIrnd\fP возвращает количество байтов,
+записанных в \fIbuf\fP.
+Параметр \fIlen\fP -
+размер буфера \fIbuf\fP в байтах.
+.
+.SH "СМОТРИ ТАКЖЕ"
+.BR geds_generate (3),
+.BR geds_check (3),
+.BR geds_set_point (3),
+.BR geds_set_length (3),
+.BR geds_set_curve (3),
+.BR geds_set_subgroup (3),
+.BR geds_set_signature (3),
+.BR geds_get_signature (3)
+.BR geds_context_new (3),
+.BR geds_context_free (3),
+.BR geds_point_new (3),
+.BR geds_point_free (3)

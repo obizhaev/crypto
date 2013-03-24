@@ -1,0 +1,36 @@
+.TH "geds_generate_man" "3" "20 марта 2013" "Linux" "GEDS Functions Manual"
+.
+.SH ИМЯ
+geds_generate - сгенерировать ЭЦП
+.
+.SH СИНТАКСИС
+.nf
+.B #include <geds.h>
+.sp
+.BI "int geds_generate(char *" msg ", int " n ", char *" d ", int " nd ", geds_context *" ctx );
+.fi
+.
+.SH ОПИСАНИЕ
+Функция \fBgeds_generate\fP(3) генерирует электронно-цифровую подпись
+сообщения \fImsg\fP длины \fIn\fP байт
+с ключом подписи \fId\fP длины \fInd\fP байт
+в соответствии с ГОСТ Р 34.10-2012,
+и записывает её во внутренний буфер механизма ЭЦП.
+.
+.SH "ВОЗВРАЩАЕМОЕ ЗНАЧЕНИЕ"
+\fBgeds_generate\fP возвращает \fBGEDS_OK\fP,
+либо \fBGEDS_ERR\fP,
+если произошла ошибка.
+.
+.SH "СМОТРИ ТАКЖЕ"
+.BR geds_check (3),
+.BR geds_set_length (3),
+.BR geds_set_curve (3),
+.BR geds_set_subgroup (3),
+.BR geds_set_rnd (3),
+.BR geds_set_signature (3),
+.BR geds_get_signature (3),
+.BR geds_context_new (3),
+.BR geds_context_free (3),
+.BR geds_point_new (3),
+.BR geds_point_free (3)

@@ -1,0 +1,36 @@
+.TH "geds_set_subgroup" "3" "19 марта 2013" "Linux" "GEDS Functions Manual"
+.
+.SH ИМЯ
+geds_set_subgroup - установить подгруппу точек
+.
+.SH СИНТАКСИС
+.nf
+.B #include <geds.h>
+.sp
+.BI "int geds_set_subgroup(const char *" q ", int " nq ", const geds_point *" P ", geds_context *" ctx );
+.fi
+.
+.SH ОПИСАНИЕ
+Функция \fBgeds_set_subgroup\fP(3) устанавливает
+порядок \fIq\fP подгруппы точек эллиптической на кривой
+и точку \fIP\fP такую,
+что \fIq\fP * \fIP\fP = 0.
+.
+.SH "ВОЗВРАЩАЕМОЕ ЗНАЧЕНИЕ"
+\fBgeds_set_subgroup\fP(3) возвращает \fBGEDS_OK\fP,
+либо \fBGEDS_ERR\fP,
+если произошла ошибка.
+.
+.SH "СМОТРИ ТАКЖЕ"
+.BR geds_generate (3),
+.BR geds_check (3),
+.BR geds_set_point (3),
+.BR geds_set_length (3),
+.BR geds_set_curve (3),
+.BR geds_set_rnd (3),
+.BR geds_set_signature (3),
+.BR geds_get_signature (3)
+.BR geds_context_new (3),
+.BR geds_context_free (3),
+.BR geds_point_new (3),
+.BR geds_point_free (3)
