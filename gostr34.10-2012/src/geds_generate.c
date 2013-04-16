@@ -50,7 +50,7 @@ geds_generate(char *msg, int n, char *d, int nd, geds_context *ctx)
 	}
 #endif
 
-	rc = ctx->H(msg, n, (char *)h);
+	rc = ctx->H((unsigned char *)msg, n, (unsigned char *)h);
 	if (rc != 0) {
 		rc = GEDS_ERR;
 		goto err_point;

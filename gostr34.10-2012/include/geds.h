@@ -1,9 +1,23 @@
 /*
- * Gost (R 34.10-2012) Electronic Digital Signature
- *
- * Kostya Nikulov, 2013
- * <knikulov@yandex.com>
- */
+	Gost (R 34.10-2012) Electronic Digital Signature
+ 
+    Copyright (C) 2013  Kostya Nikulov
+
+	This program is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+
+	You should have received a copy of the GNU General Public License
+	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+	<knikulov@yandex.com>
+*/
 
 #ifndef	GEDS_H_
 #define	GEDS_H_
@@ -13,7 +27,7 @@
 
 #include <mpl.h>
 #include <ec.h>
-#include "ghash.h"
+#include <ghash.h>
 
 enum {
 	GEDS_LEN_512 = 512,
@@ -47,7 +61,7 @@ typedef struct geds_context {
 	geds_point P;
 
 	/* hash function */
-	int (*H)(const char *msg, int n, char *hash);
+	int (*H)(const unsigned char *msg, int n, unsigned char *hash);
 
 	/* entropy source */
 	int (*rnd)(void *buf, size_t len, void *rndctx);

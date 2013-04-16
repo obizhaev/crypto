@@ -52,7 +52,7 @@ geds_check(char *msg, int n, const geds_point *Q, const geds_context *ctx)
 		goto err_point;
 	}
 
-	rc = ctx->H(msg, n, (char *)h);
+	rc = ctx->H((unsigned char *)msg, n, (unsigned char *)h);
 	if (rc != 0) {
 		rc = GEDS_ERR;
 		goto err_point;

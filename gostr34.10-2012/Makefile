@@ -1,6 +1,6 @@
 CC = gcc
 
-CFLAGS = -I include -Wall -lmpl -lec
+CFLAGS = -I include -Wall -lmpl -lec -lghash
 
 headers = geds.h
 

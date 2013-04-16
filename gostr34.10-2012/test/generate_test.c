@@ -77,6 +77,7 @@ static char qy[] = {
 	0xDF, 0xFB, 0x10, 0x1A, 0x87, 0xFF, 0x77, 0xDA
 };
 
+/*
 int
 gost_hash_256(const char *msg, int n, char *buf)
 {
@@ -105,6 +106,7 @@ gost_hash_512(const char *msg, int n, char *buf)
 
 	return 0;
 }
+*/
 
 int
 urandom(void *buf, size_t len)
