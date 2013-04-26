@@ -1,0 +1,37 @@
+.TH "geds_verify" "3" "19 марта 2013" "Linux" "GEDS Functions Manual"
+.
+.SH ИМЯ
+geds_verify - проверить подпись
+.
+.SH СИНТАКСИС
+.nf
+.B #include <geds.h>
+.sp
+.BI "int geds_verify(const geds_context *" ctx, " char *" msg ", int " n ", const geds_point *" Q );
+.fi
+.
+.SH ОПИСАНИЕ
+Функция \fBgeds_verify\fP(3) проверяет на правильность подпись,
+записанную во внутренний буфер механизма ЭЦП.
+.
+.SH "ВОЗВРАЩАЕМОЕ ЗНАЧЕНИЕ"
+\fBgeds_verify\fP возвращает
+\fBGEDS_OK\fP,
+если проверенная подпись оказалась верной,
+\fBGEDS_WRONG\fP,
+если подпись оказалось неверной и
+\fBGEDS_ERR\fP,
+если в процессе проверки произошла ошибка.
+.
+.SH "СМОТРИ ТАКЖЕ"
+.BR geds_generate (3),
+.BR geds_set_length (3),
+.BR geds_set_curve (3),
+.BR geds_set_subgroup (3),
+.BR geds_set_rnd (3),
+.BR geds_set_signature (3),
+.BR geds_get_signature (3)
+.BR geds_context_new (3),
+.BR geds_context_free (3),
+.BR geds_point_new (3),
+.BR geds_point_free (3)
