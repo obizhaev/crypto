@@ -46,4 +46,5 @@ uninstall:
 
 clean:
 	rm -f $(libfile) $(objects) timing measures stat
+	cd ./man/man3; make clean
 
