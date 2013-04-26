@@ -3,9 +3,16 @@
 
 #include "ec.h"
 
-#define	check(a, label)							\
-	if (a != MPL_OK) {						\
-		goto label;						\
+#define	ON_ERROR_GOTO(label, err) {\
+		int _e; \
+		if ((_e = (err)) != MPL_OK) { \
+			fprintf(stderr, "error at %s: %d (%s): %s\n", \
+				__FILE__, \
+				__LINE__, \
+				#err, \
+				mpl_error_str(_e)); \
+			goto label; \
+		} \
 	}
 
 int
@@ -16,27 +23,27 @@ ec_mul(ec_point *x2, const ec_point *x1, const mpl_int *n, const mpl_int *a, con
 	int rc;
 
 	rc = ec_init(&tmp);
-	check(rc, end)
+	ON_ERROR_GOTO(end, rc)
 
 	rc = ec_copy(&tmp, x1);
-	check(rc, error)
+	ON_ERROR_GOTO(error, rc)
 
-	ec_set_type(x2, EC_AT_INF);
+	ec_set_inf(x2);
 	nbits = mpl_nr_bits(n);
 
 	for (i = 0; i < nbits-1; i++) {
-		if (mpl_check_bit(n, i) == 1) {
+		if (mpl_hasbit(n, i) == 1) {
 			rc = ec_add(x2, x2, &tmp, a, p);
-			check(rc, error)
+			ON_ERROR_GOTO(error, rc)
 		}
 
 		rc = ec_add(&tmp, &tmp, &tmp, a, p);
-		check(rc, error)
+		ON_ERROR_GOTO(error, rc)
 	}
 
 	if (mpl_check_bit(n, i) == 1) {
 		rc = ec_add(x2, x2, &tmp, a, p);
-		check(rc, error)
+		ON_ERROR_GOTO(error, rc)
 	}
 
 	rc = EC_OK;

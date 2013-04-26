@@ -7,7 +7,7 @@ geds_set_rnd - установить источник энтропии
 .nf
 .B #include <geds.h>
 .sp
-.BI "void geds_set_rnd(int (*" rnd ")(void *" buf ", size_t " len ", void *" rndctx "), void *" rndctx ", geds_context *" ctx );
+.BI "void geds_set_rnd(geds_context *" ctx " int (*" rnd ")(void *" buf ", size_t " len ", void *" rndctx "), void *" rndctx );
 .fi
 .
 .SH ОПИСАНИЕ
@@ -25,7 +25,7 @@ geds_set_rnd - установить источник энтропии
 .
 .SH "СМОТРИ ТАКЖЕ"
 .BR geds_generate (3),
-.BR geds_check (3),
+.BR geds_verify (3),
 .BR geds_set_point (3),
 .BR geds_set_length (3),
 .BR geds_set_curve (3),

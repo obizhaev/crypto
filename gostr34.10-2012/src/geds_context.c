@@ -1,58 +1,45 @@
 #include <stdlib.h>
+#include <string.h>
 
 #include "geds.h"
 
 geds_context *
 geds_context_new()
 {
-	geds_context *new;
-	mpl_int *a, *b, *p, *q;
-	int i;
+	geds_context *ctx;
 
-	new = malloc(sizeof(*new));
-	if (new == NULL)
-		goto end;
+	ctx = malloc(sizeof(*ctx));
+	if (ctx == NULL)
+		return NULL;
 
-	if (ec_init(&(new->P)) != EC_OK)
+	if (ec_init(&(ctx->P)) != EC_OK)
 		goto err_ec;
 
-	a = &(new->a);
-	b = &(new->b);
-	p = &(new->p);
-	q = &(new->q);
-
-	if (mpl_initv(a, b, p, q, NULL) != MPL_OK)
+	if (mpl_initv(&ctx->a, &ctx->b, &ctx->p, &ctx->q, NULL) != MPL_OK)
 		goto err_mpl;
 
-	new->length = -2;
-	new->H = NULL;
-	new->rnd = NULL;
-	new->rndctx = NULL;
+	ctx->length = GEDS_LEN_UNKNOWN;;
+	ctx->H = NULL;
+	ctx->rnd = NULL;
+	ctx->rndctx = NULL;
 
-	for (i = 0; i < 128; i++)
-		new->s[i] = (unsigned char)0;
+	memset(ctx->s, 0, 128);
 
-	goto end;
+	return ctx;
+
 err_mpl:
-	ec_clear(&(new->P));
+	ec_clear(&(ctx->P));
 err_ec:
-	free(new);
-	new = NULL;
-end:
-	return new;
+	free(ctx);
+	ctx = NULL;
+
+	return ctx;
 }
 
 void
 geds_context_free(geds_context **ctx)
 {
-	mpl_int *a, *b, *p, *q;
-
-	a = &((*ctx)->a);
-	b = &((*ctx)->b);
-	q = &((*ctx)->q);
-	p = &((*ctx)->p);
-
-	mpl_clearv(a, b, p, q, NULL);
+	mpl_clearv(&(*ctx)->a, &(*ctx)->b, &(*ctx)->p, &(*ctx)->q, NULL);
 	ec_clear(&((*ctx)->P));
 	free(*ctx);
 	*ctx = NULL;

@@ -19,4 +19,4 @@ geds_point_free - освобождает память, содержащую то
 .BR geds_context_new (3),
 .BR geds_context_free (3),
 .BR geds_generate (3),
-.BR geds_check (3)
+.BR geds_verify (3)

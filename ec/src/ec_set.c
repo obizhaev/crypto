@@ -16,9 +16,15 @@ ec_set_y(ec_point *p, const mpl_int *a)
 }
 
 void
-ec_set_type(ec_point *p, int type)
+ec_set_reg(ec_point *p)
 {
-	p->type = type;
+	p->flags = 1 << EC_REGULAR;
+}
+
+void
+ec_set_inf(ec_point *p)
+{
+	p->flags = 1 << EC_INFINITE;
 }
 
 int

@@ -6,7 +6,7 @@
 #include "geds.h"
 
 void
-geds_get_signature(unsigned char *buf, const geds_context *ctx)
+geds_get_signature(const geds_context *ctx, unsigned char *buf)
 {
 	int i;
 

@@ -7,7 +7,7 @@ geds_set_length - выбрать длину подписи
 .nf
 .B #include <geds.h>
 .sp
-.BI "int geds_set_length(int " len ", geds_context *" ctx );
+.BI "int geds_set_length(geds_context *" ctx " int " len );
 .fi
 .
 .SH ОПИСАНИЕ
@@ -24,7 +24,7 @@ geds_set_length - выбрать длину подписи
 .
 .SH "СМОТРИ ТАКЖЕ"
 .BR geds_generate (3),
-.BR geds_check (3),
+.BR geds_verify (3),
 .BR geds_set_point (3),
 .BR geds_set_curve (3),
 .BR geds_set_subgroup (3),

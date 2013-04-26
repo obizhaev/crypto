@@ -7,7 +7,7 @@ geds_set_curve - устанавливает эллиптическую крив�
 .nf
 .B #include <geds.h>
 .sp
-.BI "int geds_set_curve(const char *" a ", int " na ", const char *" b ", int " nb ", const char *" p ", int " np ", geds_context *" ctx );
+.BI "int geds_set_curve(geds_context *" ctx " const char *" a ", int " na ", const char *" b ", int " nb ", const char *" p ", int " np );
 .fi
 .
 .SH ОПИСАНИЕ
@@ -27,7 +27,7 @@ geds_set_curve - устанавливает эллиптическую крив�
 .
 .SH "СМОТРИ ТАКЖЕ"
 .BR geds_generate (3),
-.BR geds_check (3),
+.BR geds_verify (3),
 .BR geds_set_point (3),
 .BR geds_set_length (3),
 .BR geds_set_subgroup (3),

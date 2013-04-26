@@ -4,10 +4,10 @@ CFLAGS = -I include -Wall -lmpl -lec -lghash
 
 headers = geds.h
 
-sources = geds_context.c geds_set.c geds_get.c geds_point.c geds_check.c \
+sources = geds_context.c geds_set.c geds_get.c geds_point.c geds_verify.c \
 	  geds_generate.c
 
-objects = geds_context.o geds_set.o geds_get.o geds_point.o geds_check.o \
+objects = geds_context.o geds_set.o geds_get.o geds_point.o geds_verify.o \
 	  geds_generate.o
 
 libfile = libgeds.so

@@ -3,8 +3,10 @@
 
 #include <mpl.h>
 
-#define	EC_REGULAR	0
-#define	EC_AT_INF	1
+enum {
+	EC_REGULAR = 0,
+	EC_INFINITE
+};
 
 enum {
 	EC_OK = MPL_OK,
@@ -15,7 +17,7 @@ enum {
 typedef struct ec_point {
 	mpl_int x;
 	mpl_int y;
-	int type;
+	unsigned flags;
 } ec_point;
 
 int ec_init(ec_point *p);
@@ -25,7 +27,8 @@ void ec_clearv(ec_point *p, ...);
 
 int ec_set_x(ec_point *p, const mpl_int *a);
 int ec_set_y(ec_point *p, const mpl_int *a);
-void ec_set_type(ec_point *p, int type);
+void ec_set_reg(ec_point *p);
+void ec_set_inf(ec_point *p);
 
 int ec_get_x(mpl_int *a, const ec_point *p);
 int ec_get_y(mpl_int *a, const ec_point *p);

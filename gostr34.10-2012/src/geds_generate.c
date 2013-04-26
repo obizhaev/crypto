@@ -12,7 +12,7 @@
 #include "geds.h"
 
 int
-geds_generate(char *msg, int n, char *d, int nd, geds_context *ctx)
+geds_generate(geds_context *ctx, char *msg, int n, unsigned char *d, int nd)
 {
 	ec_point C;
 	ec_point *P;
@@ -26,7 +26,7 @@ geds_generate(char *msg, int n, char *d, int nd, geds_context *ctx)
 	long int t;
 #endif
 
-	if (ctx->length < 0) {
+	if (ctx->length == GEDS_LEN_UNKNOWN) {
 		rc = GEDS_ERR;
 		goto end;
 	}
@@ -67,7 +67,7 @@ geds_generate(char *msg, int n, char *d, int nd, geds_context *ctx)
 	fprintf(stderr, "%li\n", t);
 #endif
 
-	rc = mpl_set_uchar(&e, h, ctx->length/16);
+	rc = mpl_set_uchar(&e, h, ctx->length/2);
 	if (rc != MPL_OK) {
 		rc = GEDS_ERR;
 		goto err_point;
@@ -208,13 +208,13 @@ geds_generate(char *msg, int n, char *d, int nd, geds_context *ctx)
 	fprintf(stderr, "%li\n", t);
 #endif
 
-	rc = mpl_to_uchar(&r, ctx->s, ctx->length/16);
+	rc = mpl_to_uchar(&r, ctx->s, ctx->length/2);
 	if (rc != MPL_OK) {
 		rc = GEDS_ERR;
 		goto err_point;
 	}
 
-	rc = mpl_to_uchar(&s, ctx->s + (ctx->length/16), ctx->length/16);
+	rc = mpl_to_uchar(&s, ctx->s + (ctx->length/2), ctx->length/2);
 	if (rc != MPL_OK) {
 		rc = GEDS_ERR;
 		goto err_point;

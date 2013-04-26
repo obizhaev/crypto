@@ -7,8 +7,7 @@
 int
 ec_init(ec_point *p)
 {
-	p->type = EC_REGULAR;
-
+	ec_set_reg(p);
 	return mpl_initv(&(p->x), &(p->y), NULL);
 }
 
@@ -24,7 +23,7 @@ ec_initv(ec_point *p, ...)
 	va_copy(ap_copy, ap);
 
 	while (pp != NULL) {
-		pp->type = EC_REGULAR;
+		ec_set_reg(pp);
 		if (mpl_initv(&(pp->x), &(pp->y), NULL) != MPL_OK)
 			goto error;
 

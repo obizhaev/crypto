@@ -5,40 +5,32 @@
 
 #include "geds.h"
 
+#define	NELEMS(a) (sizeof(a)/sizeof(a[0]))
+
 int
-geds_set_point(geds_point *P, const char *x, int nx, const char *y, int ny)
+geds_set_point(geds_point *P, const unsigned char *x, int nx, const unsigned char *y, int ny)
 {
 	mpl_int tmp;
 	int rc;
 
-	rc = GEDS_OK;
+	if (mpl_init(&tmp) != MPL_OK) {
+		return GEDS_ERR;
+	} else if (mpl_set_uchar(&tmp, x, nx) != MPL_OK) {
+		rc = GEDS_ERR;
+	} else  if (ec_set_x(P, &tmp) != EC_OK) {
+		rc = GEDS_ERR;
+	} else if (ec_set_y(P, &tmp) != EC_OK) {
+		rc = GEDS_ERR;
+	} else {
+		rc = GEDS_OK;
+	}
 
-	if (mpl_init(&tmp) != MPL_OK)
-		goto err;
-
-	if (mpl_set_uchar(&tmp, (unsigned char *)x, nx) != MPL_OK)
-		goto err;
-
-	if (ec_set_x(P, &tmp) != EC_OK)
-		goto err;
-
-	if (mpl_set_uchar(&tmp, (unsigned char *)y, ny) != MPL_OK)
-		goto err;
-
-	if (ec_set_y(P, &tmp) != EC_OK)
-		goto err;
-
-	goto end;
-err:
-	rc = GEDS_NOMEM;
-end:
 	mpl_clear(&tmp);
-
 	return rc;
 }
 
 int
-geds_set_length(int len, geds_context *ctx)
+geds_set_length(geds_context *ctx, int len)
 {
 	switch (len) {
 	case GEDS_LEN_512:
@@ -59,38 +51,30 @@ geds_set_length(int len, geds_context *ctx)
 }
 
 int
-geds_set_curve(const char *a, int na, const char *b, int nb, const char *p, int np, geds_context *ctx)
+geds_set_curve(geds_context *ctx, const unsigned char *a, int na, const unsigned char *b, int nb, const unsigned char *p, int np)
 {
+	mpl_int *list[] = {&ctx->a, &ctx->b, &ctx->p};
+	const unsigned char *blist[] = {a, b, p};
+	int nlist[] = {na, nb, np};
+	int i;
 	int rc;
 
-	if (a != NULL) {
-		rc = mpl_set_uchar(&(ctx->a), (unsigned char *)a, na);
-		if (rc != MPL_OK)
-			goto err;
-	}
-
-	if (b != NULL) {
-		rc = mpl_set_uchar(&(ctx->b), (unsigned char *)b, nb);
-		if (rc != MPL_OK)
-			goto err;
-	}
-
-	if (p != NULL) {
-		rc = mpl_set_uchar(&(ctx->p), (unsigned char *)p, np);
-		if (rc != MPL_OK)
-			goto err;
-	}
-
 	rc = GEDS_OK;
-	goto end;
-err:
-	rc = GEDS_ERR;
-end:
+	for (i = 0; i < NELEMS(list); i++) {
+		if (blist[i] != NULL) {
+			rc = mpl_set_uchar(list[i], blist[i], nlist[i]);
+			if (rc != MPL_OK) {
+				rc = GEDS_ERR;
+				break;
+			}
+		}
+	}
+
 	return rc;
 }
 
 int
-geds_set_subgroup(const char *q, int nq, const geds_point *P, geds_context *ctx)
+geds_set_subgroup(geds_context *ctx, const unsigned char *q, int nq, const geds_point *P)
 {
 	int rc;
 
@@ -115,14 +99,14 @@ end:
 }
 
 void
-geds_set_rnd(int (*rnd)(void *buf, size_t len, void *rndctx), void *rndctx, geds_context *ctx)
+geds_set_rnd(geds_context *ctx, int (*rnd)(void *buf, size_t len, void *rndctx), void *rndctx)
 {
 	ctx->rnd = rnd;
 	ctx->rndctx = rndctx;
 }
 
 void
-geds_set_signature(const unsigned char *buf, geds_context *ctx)
+geds_set_signature(geds_context *ctx, const unsigned char *buf)
 {
 	int i;
 

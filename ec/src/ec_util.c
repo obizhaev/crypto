@@ -11,13 +11,13 @@
 int
 ec_isreg(const ec_point *p)
 {
-	return (p->type == EC_REGULAR);
+	return (p->flags & (1 < EC_REGULAR));
 }
 
 int
 ec_isinf(const ec_point *p)
 {
-	return (p->type == EC_AT_INF);
+	return (p->flags & (1 < EC_INFINITE));
 }
 
 int
@@ -31,7 +31,7 @@ ec_copy(ec_point *dst, const ec_point *src)
 	rc = mpl_copy(&(dst->y), &(src->y));
 	check(rc, error)
 
-	dst->type = src->type;
+	dst->flags = src->flags;
 error:
 	return rc;
 }

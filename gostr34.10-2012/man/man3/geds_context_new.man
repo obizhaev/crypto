@@ -24,4 +24,4 @@ geds_context_new - выделяет память для работы с ЭЦП
 .BR geds_point_new (3),
 .BR geds_poin_free (3),
 .BR geds_generate (3),
-.BR geds_check (3)
+.BR geds_verify (3)

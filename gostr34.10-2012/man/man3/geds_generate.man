@@ -7,7 +7,7 @@ geds_generate - сгенерировать ЭЦП
 .nf
 .B #include <geds.h>
 .sp
-.BI "int geds_generate(char *" msg ", int " n ", char *" d ", int " nd ", geds_context *" ctx );
+.BI "int geds_generate(geds_context *" ctx " char *" msg ", int " n ", char *" d ", int " nd );
 .fi
 .
 .SH ОПИСАНИЕ
@@ -23,7 +23,7 @@ geds_generate - сгенерировать ЭЦП
 если произошла ошибка.
 .
 .SH "СМОТРИ ТАКЖЕ"
-.BR geds_check (3),
+.BR geds_verify (3),
 .BR geds_set_length (3),
 .BR geds_set_curve (3),
 .BR geds_set_subgroup (3),
